@@ -3,28 +3,34 @@ import { config } from "dotenv";
 import cors from "cors";
 import { logger } from "./utils/logger";
 
+import uploadRoute from "./routes/upload-routes";
+
 const main = async () => {
     const app = express();
 
-    app.use(express.json());
-    app.use(cors);
-    app.use((err: Error, _req: express.Request, res: express.Response) => {
-        logger.error(err);
-        res.status(500).json({ message: err });
-    });
-
     config();
 
-    process.on("SIGTERM", () => {
-        logger.info("closing server...");
-        process.exit(0);
-    });
+    app.use(express.json());
+    app.use(cors());
+    app.use(
+        (
+            err: Error,
+            _req: express.Request,
+            res: express.Response,
+            _next: express.NextFunction
+        ) => {
+            logger.error(err.stack || err.message);
+            res.status(500).json({ message: err });
+        }
+    );
+
+    app.use("/api", uploadRoute);
 
     app.get("/", (_req, res) => {
         res.send("Hello World");
     });
 
-    const port = process.env.PORT;
+    const port = process.env.PORT || 3000;
 
     app.listen(port, () => {
         console.log(`server on!!! port: ${port}`);
