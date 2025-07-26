@@ -1,6 +1,7 @@
 import express from "express";
 import { config } from "dotenv";
 import cors from "cors";
+import path from "path";
 import { logger } from "./utils/logger";
 
 import uploadRoute from "./routes/upload-routes";
@@ -25,6 +26,8 @@ const main = async () => {
     );
 
     app.use("/api", uploadRoute);
+
+    app.use("/uploads", express.static(path.resolve(process.cwd(), "uploads")));
 
     app.get("/", (_req, res) => {
         res.send("Hello World");

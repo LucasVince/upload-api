@@ -24,7 +24,15 @@ router.post("/uploads", upload.single("file"), async (req, res) => {
 router.get("/uploads", async (req, res) => {
     const getFiles = getFileFactory();
 
-    const response = await getFiles.handle();
+    const HttpRequest = {
+        body: { ...req.body, file: req.file },
+        params: req.params,
+        headers: req.headers,
+        query: req.query,
+        method: req.method as "POST",
+    };
+
+    const response = await getFiles.handle(HttpRequest);
 
     res.status(response.statusCode).json(response.body);
 });
