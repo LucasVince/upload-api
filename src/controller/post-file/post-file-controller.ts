@@ -1,9 +1,9 @@
 import { badRequest, ok, serverError } from "../helpers";
 import { HttpRequest, HttpResponse, iController } from "../protocols";
 import { logger } from "../../utils/logger";
-import { FileRequest } from "./protocols";
+import { FileRequest } from "../protocols";
 
-export class UploadFileController implements iController {
+export class postFileController implements iController {
     async handle(
         HttpRequest: HttpRequest<FileRequest>
     ): Promise<HttpResponse<unknown>> {
