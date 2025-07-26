@@ -6,11 +6,12 @@
         "rootDir": "./src",
         "sourceMap": true,
 
-        "esModuleInterop": true, // Melhor interoperabilidade entre CommonJS/ES Modules
-        "skipLibCheck": true, // Otimização: pula verificação de tipos nas libs
-        "forceConsistentCasingInFileNames": true, // Evita problemas com case sensitivity
+        "esModuleInterop": true,
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
 
-        /* Strict Type-Checking */
         "strict": true,
         "noImplicitAny": true,
         "strictNullChecks": true,
@@ -18,22 +19,12 @@
         "strictBindCallApply": true,
         "noImplicitThis": true,
 
-        /* Linter Checks */
-        "noUnusedLocals": false, // Erro em variáveis locais não usadas
-        "noUnusedParameters": false, // Erro em parâmetros não usados
-        "noImplicitReturns": true, // Erro se função não retornar explicitamente
-        "noFallthroughCasesInSwitch": true, // Erro em fallthrough no switch
-        "typeRoots": ["./node_modules/@types", "./types"] // Diretório de tipos personalizados
-
-        /* Você pode adicionar se usar decorators */
-        // "experimentalDecorators": true,
-        // "emitDecoratorMetadata": true
+        "noUnusedLocals": false,
+        "noUnusedParameters": false,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "typeRoots": ["./node_modules/@types", "./types"]
     },
-    "include": ["src/**/*"], // Arquivos a serem incluídos
-    "exclude": [
-        // Arquivos a serem ignorados
-        "node_modules",
-        "**/*.spec.ts", // Ignora testes (ajuste conforme necessário)
-        "**/*.test.ts"
-    ]
+    "include": ["src/**/*"],
+    "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts"]
 }
