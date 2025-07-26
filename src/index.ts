@@ -1,8 +1,12 @@
 import express from "express";
+
 import { config } from "dotenv";
 import cors from "cors";
+
 import path from "path";
+
 import { logger } from "./utils/logger";
+import { mongoClient } from "./database/mongo";
 
 import uploadRoute from "./routes/upload-routes";
 
@@ -24,6 +28,14 @@ const main = async () => {
             res.status(500).json({ message: err });
         }
     );
+
+    await mongoClient.connect();
+
+    process.on("SIGTERM", async () => {
+        logger.info("closing server...");
+        await mongoClient.client.close();
+        process.exit(0);
+    });
 
     app.use("/api", uploadRoute);
 
